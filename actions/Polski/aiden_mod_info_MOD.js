@@ -123,7 +123,7 @@ module.exports = {
 			<option value="0" selected>---Tworca---</option>
 			<option value="1">Meffiu#9999</option>
 			<option value="2">---Pomocnicy---</option>
-			<option value="3">nikt</option>
+			<option value="3">Gryzzli#1337</option>
 			<option value="4">nikt</option>
 			<option value="5">nikt</option>
 				</select>
