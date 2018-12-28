@@ -167,7 +167,7 @@ html: function(isEvent, data) {
 			<option value="8">Wiadomosc edytowana w</option>
 			<option value="9">Historia edycji wiadomosci</option>
 			<option value="10">Czy wiadomosc jest przypinalna?</option>
-			<option value="11">MCzy wiadomosc posiada @everyone?</option>
+			<option value="11">Czy wiadomosc posiada @everyone?</option>
 			<option value="12">Liczba roznych reakcji</option>
 			<option value="13">Lista oznaczonych uzytkownikow</option>
 			<option value="14">Liczba oznaczonych uzytkownikow</option>
