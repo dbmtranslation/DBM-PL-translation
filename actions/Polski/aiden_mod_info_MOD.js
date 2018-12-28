@@ -106,7 +106,7 @@ module.exports = {
             <embedleftline style="background-color: #2b9696;"></embedleftline>
         <div class="embedinfo">
 	    <span class="embed-auth"><u>Informacje o tłumaczeniu</u><br>Stworzono przez <b>Meffiu#9999</b></span><br>
-	    <span class="embed-desc">Aktualizacje znajdziesz <a href="https://github.com/dbmtranslation/DBM-PL-translation">tu</a><br>Version: 1.2</span>
+	    <span class="embed-desc">Aktualizacje znajdziesz <a href="https://github.com/dbmtranslation/DBM-PL-translation">tu</a><br>Wersja: 1.3</span>
         </div>
         </div><br>
 	<div style="width: 95%; padding-top: 8px;">
