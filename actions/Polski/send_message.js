@@ -16,6 +16,15 @@ name: "Wyslij wiadomosc",
 
 section: "Wiadomosci",
 
+// Who made the mod (If not set, defaults to "DBM Mods")
+author: "DBM & NetLuis",
+
+// The version of the mod (Defaults to 1.0.0)
+version: "1.9.4", //Added in 1.9.4
+
+// A short description to show on the mod line for this mod (Must be on a single line)
+short_description: "Added If Message Delivery Fails option.",
+
 //---------------------------------------------------------------------
 // Action Subtitle
 //
@@ -47,7 +56,7 @@ variableStorage: function(data, varType) {
 // are also the names of the fields stored in the action's JSON data.
 //---------------------------------------------------------------------
 
-fields: ["channel", "varName", "message", "storage", "varName2"],
+fields: ["channel", "varName", "message", "storage", "varName2", "iffalse", "iffalseVal"],
 
 //---------------------------------------------------------------------
 // Command HTML
@@ -67,9 +76,11 @@ fields: ["channel", "varName", "message", "storage", "varName2"],
 
 html: function(isEvent, data) {
 	return `
+	<div style="width: 550px; height: 350px; overflow-y: scroll;">
+	<div><p>This action has been modified by DBM Mods.</p></div><br>
 <div>
 	<div style="float: left; width: 35%;">
-		Wyslij na:<br>
+		Wyslij na::<br>
 		<select id="channel" class="round" onchange="glob.sendTargetChange(this, 'varNameContainer')">
 			${data.sendTargets[isEvent ? 1 : 0]}
 		</select>
@@ -80,8 +91,8 @@ html: function(isEvent, data) {
 	</div>
 </div><br><br><br>
 <div style="padding-top: 8px;">
-	Wiadomosc:<br>
-	<textarea id="message" rows="9" placeholder="Wpisz wiadomosc tutaj..." style="width: 99%; font-family: monospace; white-space: nowrap; resize: none;"></textarea>
+	Wiadomość:<br>
+	<textarea id="message" rows="9" placeholder="Wpisz wiadomość tutaj..." style="width: 99%; font-family: monospace; white-space: nowrap; resize: none;"></textarea>
 </div><br>
 <div>
 	<div style="float: left; width: 35%;">
@@ -94,7 +105,18 @@ html: function(isEvent, data) {
 		Nazwa zmiennej:<br>
 		<input id="varName2" class="round" type="text">
 	</div>
-</div>`;
+</div><br><br><br>
+<div style="padding-top: 8px;">
+        <div style="float: left; width: 35%;">
+            Jeśli wiadomość nie dotrze:<br>
+            <select id="iffalse" class="round" onchange="glob.onChangeFalse(this)">
+				<option value="0" selected>Kontynuuj akcje</option>
+				<option value="1">Zatrzymaj sekwencje akcji</option>
+				<option value="2">Skocz to akcji</option>
+				<option value="3">Pomiń kolejne akcje</option>
+		 </select>
+		</div>
+		<div id="iffalseContainer" style="display: none; float: right; width: 60%;"><span id="iffalseName">Action Number</span>:<br><input id="iffalseVal" class="round" type="text"></div>`;
 },
 
 //---------------------------------------------------------------------
@@ -110,6 +132,7 @@ init: function() {
 
 	glob.sendTargetChange(document.getElementById('channel'), 'varNameContainer');
 	glob.variableChange(document.getElementById('storage'), 'varNameContainer2');
+	glob.onChangeFalse(document.getElementById('iffalse'));
 },
 
 //---------------------------------------------------------------------
@@ -142,7 +165,12 @@ action: function(cache) {
 			const storage = parseInt(data.storage);
 			this.storeValue(resultMsg, storage, varName2, cache);
 			this.callNextAction(cache);
-		}.bind(this)).catch(this.displayError.bind(this, data, cache));
+		}.bind(this)).catch(err => {
+			if(err.message == ('Cannot send messages to this user')) {
+				this.executeResults(false, data, cache);
+			} else {
+			this.displayError.bind(this, data, cache)}
+		});
 	} else {
 		this.callNextAction(cache);
 	}

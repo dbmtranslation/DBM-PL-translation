@@ -27,6 +27,22 @@ subtitle: function(data) {
 	return `If True: ${results[parseInt(data.iftrue)]} ~ If False: ${results[parseInt(data.iffalse)]}`;
 },
 
+	//---------------------------------------------------------------------
+		 // DBM Mods Manager Variables (Optional but nice to have!)
+		 //
+		 // These are variables that DBM Mods Manager uses to show information
+		 // about the mods for people to see in the list.
+		 //---------------------------------------------------------------------
+	
+		 // Who made the mod (If not set, defaults to "DBM Mods")
+		 author: "DBM & NetLuis",
+	
+		 // The version of the mod (Defaults to 1.0.0)
+		 version: "1.9.4", //Added in 1.9.4
+	
+		 // A short description to show on the mod line for this mod (Must be on a single line)
+		 short_description: "Added more options to default action.",
+
 //---------------------------------------------------------------------
 // Action Fields
 //
@@ -55,6 +71,7 @@ fields: ["server", "varName", "dataName", "comparison", "value", "iftrue", "iftr
 
 html: function(isEvent, data) {
 	return `
+	<div><p>This action has been modified by DBM Mods.</p></div><br>
 <div>
 	<div style="float: left; width: 35%;">
 		Serwer:<br>
@@ -69,24 +86,29 @@ html: function(isEvent, data) {
 </div><br><br><br>
 <div style="padding-top: 8px;">
 	<div style="float: left; width: 50%;">
-		Nazwa daty:<br>
+		Nazwa Daty:<br>
 		<input id="dataName" class="round" type="text">
 	</div>
 	<div style="float: left; width: 45%;">
-		Typ porownania:<br>
+		Typ porównania:<br>
 		<select id="comparison" class="round">
-			<option value="0">Czy istnieje</option>
+			<option value="0">Istnieje?</option>
 			<option value="1" selected>Jest</option>
-			<option value="2">Jest dokladnie</option>
+			<option value="2">Jest dokładnie</option>
 			<option value="3">Mniejsze od</option>
-			<option value="4">Wieksze od</option>
-			<option value="5">Posiada</option>
-			<option value="6">Wyrazenie regularne</option>
+			<option value="4">Większe od</option>
+			<option value="5">Zawiera</option>
+			<option value="6">Matches Regex</option>
+			<option value="7">Długość większa od</option>
+			<option value="8">Długość mniejsza od</option>
+			<option value="9">Dłogość dokładnie</option>
+			<option value="10">Zaczyna się od</option>
+			<option value="11">Kończy się na</option>
 		</select>
 	</div>
 </div><br><br><br>
 <div style="padding-top: 8px;">
-	Wartosc do porownania:<br>
+	Wartość do porównania:<br>
 	<input id="value" class="round" type="text" name="is-eval">
 </div>
 <div style="padding-top: 16px;">
@@ -155,6 +177,21 @@ action: function(cache) {
 			case 6:
 				result = Boolean(val1.match(new RegExp('^' + val2 + '$', 'i')));
 				break;
+			case 7: // Case 7-11 Added by NetLuis
+				result = Boolean(val1.length > val2);
+				break;
+			case 8:
+				result = Boolean(val1.length < val2);
+				break;
+			case 9:
+			  result = Boolean(val1.length == val2);
+			  break;
+			case 10:
+			  result = val1.startsWith(val2);
+			  break;
+			case 11:
+			  result = val1.endsWith(val2);
+			  break;
 		}
 	}
 	this.executeResults(result, data, cache);
