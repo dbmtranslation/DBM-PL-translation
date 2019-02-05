@@ -106,7 +106,7 @@ module.exports = {
             <embedleftline style="background-color: #2b9696;"></embedleftline>
         <div class="embedinfo">
 	    <span class="embed-auth"><u>Informacje o tłumaczeniu</u><br>Stworzono przez <b>Meffiu#9999</b></span><br>
-	    <span class="embed-desc">Aktualizacje znajdziesz <a href="https://github.com/dbmtranslation/DBM-PL-translation">tu</a><br>Wersja: 1.7<br>Wersja modów: 1.9.4</span>
+	    <span class="embed-desc">Aktualizacje znajdziesz <a href="https://github.com/dbmtranslation/DBM-PL-translation">tu</a><br>Wersja: 1.8<br>Wersja modów: 1.9.4</span>
         </div>
         </div><br>
 	<div style="width: 95%; padding-top: 8px;">
@@ -144,7 +144,8 @@ module.exports = {
 	<div style="float: left; width: 88%; padding-top: 8px;">
 		<br>
 		<p>
-			<a href="https://discord.gg/k6wSNH">Polski Support DBM</a><br><a href="https://discord.gg/z5bmGf9">DBM Network</a>
+			<a href="https://discord.gg/8fFT58h
+			">Polski Support DBM</a><br><a href="https://discord.gg/z5bmGf9">DBM Network</a>
 		</p>
 	<div>
 </div>
