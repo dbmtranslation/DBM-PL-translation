@@ -35,7 +35,7 @@ module.exports = {
 		 //---------------------------------------------------------------------
 	
 		 // Who made the mod (If not set, defaults to "DBM Mods")
-		 author: "Aiden",
+		 author: "Meffiu",
 	
 		 // The version of the mod (Defaults to 1.0.0)
 		 version: "1.9.1", //Added in 1.9.1
@@ -106,7 +106,7 @@ module.exports = {
             <embedleftline style="background-color: #2b9696;"></embedleftline>
         <div class="embedinfo">
 	    <span class="embed-auth"><u>Informacje o tłumaczeniu</u><br>Stworzono przez <b>Meffiu#9999</b></span><br>
-	    <span class="embed-desc">Aktualizacje znajdziesz <a href="https://github.com/dbmtranslation/DBM-PL-translation">tu</a><br>Wersja: 1.8<br>Wersja modów: 1.9.4</span>
+	    <span class="embed-desc">Aktualizacje znajdziesz <a href="https://github.com/dbmtranslation/DBM-PL-translation">tu</a><br>Wersja: 1.9<br>Wersja modów: 1.9.4</span>
         </div>
         </div><br>
 	<div style="width: 95%; padding-top: 8px;">
