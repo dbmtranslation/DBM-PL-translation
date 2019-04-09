@@ -6,7 +6,7 @@ module.exports = {
 	// This is the name of the action displayed in the editor.
 	//---------------------------------------------------------------------
 	
-	name: "Edytuj kanal",
+	name: "Edytuj Kanal",
 	//Changed by Lasse in 1.8.7 from "Edit channel" to "Edit Channel"
 	
 	//---------------------------------------------------------------------
@@ -40,7 +40,7 @@ module.exports = {
 		 author: "Lasse, MrGold & NetLuis", // UI fixed by MrGold
 	
 		 // The version of the mod (Defaults to 1.0.0)
-		 version: "1.9.4", //Added in 1.8.2
+		 version: "1.9.5", //Added in 1.8.2
 	
 		 // A short description to show on the mod line for this mod (Must be on a single line)
 		 short_description: "Edits a specific channel",
@@ -59,7 +59,7 @@ module.exports = {
 	// are also the names of the fields stored in the action's JSON data.
 	//---------------------------------------------------------------------
 	
-	fields: ["storage", "varName", "toChange", "newState"],
+	fields: ["storage", "varName", "channelType", "toChange", "newState"],
 	
 	//---------------------------------------------------------------------
 	// Command HTML
@@ -99,15 +99,24 @@ module.exports = {
 	</div><br><br><br>
 	<div>
 		<div style="float: left; width: 35%;">
+			Typ kanału:<br>
+			<select id="channelType" class="round">
+				<option value="0" selected>Kanał tekstowy</option>
+				<option value="1">Kanał głosowy</option>
+			</select>
+		</div><br><br><br>
+	</div>
+	<div>
+		<div style="float: left; width: 35%;">
 			Zmień:<br>
 			<select id="toChange" class="round">
 				<option value="0" selected>Nazwe</option>
 				<option value="1">Tytuł</option>
-				<option value="2">Pozycje</option>
+				<option value="2">Pozycję</option>
 				<option value="3">Bitrate</option>
 				<option value="4">Limit użytkowników</option>
-				<option value="5">ID Kategorii</option>
-				<option value="6">Limit stawki na użytkownika</option>
+				<option value="5">ID kategorii</option>
+				<option value="6">Rate limit na użytkownika</option>
 			</select>
 		</div><br><br><br>
 	<div>
@@ -144,21 +153,36 @@ module.exports = {
 		const data = cache.actions[cache.index];
 		const storage = parseInt(data.storage);
 		const varName = this.evalMessage(data.varName, cache);
-		const channel = this.getChannel(storage, varName, cache);
+		const channelType = parseInt(data.channelType);
 		const newState = this.evalMessage(data.newState, cache);
-		if(data.toChange === 1) {
+		const toChange = parseInt(data.toChange, cache);
+
+		let channel;
+		switch(channelType) {
+			case 0:
+				channel = this.getChannel(storage, varName, cache);
+				break;
+			case 1:
+				channel = this.getVoiceChannel(storage, varName, cache);
+				break;
+			default:
+				channel = this.getChannel(storage, varName, cache);
+				break;
+		}
+
+		if(toChange === 1) {
 			channel.edit({topic: newState});
-		} else if(data.toChange === 0) {
+		} else if(toChange === 0) {
 			channel.edit({name: newState});
-		} else if(data.toChange === 2) {
+		} else if(toChange === 2) {
 			channel.edit({position: newState});
-		} else if(data.toChange === 3) {
-			channel.edit({bitrate: newState});
-		} else if(data.toChange === 4) {
-			channel.edit({userLimit: newState});
-		} else if(data.toChange === 5) {
+		} else if(toChange === 3) {
+			channel.edit({bitrate: parseInt(newState)});
+		} else if(toChange === 4) {
+			channel.edit({userLimit: parseInt(newState)});
+		} else if(toChange === 5) {
 			channel.setParent(newState); // Added by Lasse in 1.8.7
-		} else if(data.toChange === 6) {
+		} else if(toChange === 6) {
 			if(newState >= 0 && newState <= 120) {
 			
 			new Promise((resolve, _reject) => {
